@@ -30,6 +30,7 @@
     "concurrently": "^5.1.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.5.2",
+    "dotenv": "^8.2.0",
     "html-webpack-plugin": "^4.2.0",
     "nodemon": "^2.0.3",
     "sass-loader": "^8.0.2",
@@ -43,12 +44,13 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
+    "mongoose": "^5.9.9",
     "node-sass": "^4.13.1",
-    "pg": "^8.0.2",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
-    "react-router-dom": "^5.1.2",
-    "reactstrap": "^8.4.1"
+    "react-router-bootstrap": "^0.25.0",
+    "react-router-dom": "^5.1.2"
   }
 }

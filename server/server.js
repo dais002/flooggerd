@@ -1,9 +1,22 @@
+require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const PORT = process.env.PORT || 8080;
 
 const app = express();
+
+// connect to mongodb
+mongoose.connect(process.env.DATABASE_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: 'meeshandstan-eats'
+});
+const db = mongoose.connection;
+db.on("error", (err) => console.error(err));
+db.once("open", () => console.log("Connected to Database..."));
 
 // returns middleware that parses json
 app.use(bodyParser.json());
@@ -14,6 +27,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // serve static CSS/image files
 app.use("/", express.static(path.join(__dirname, "../client/src/assets")));
 app.use(express.static("../client/build"));
+
+// add routers
+const recipeRouter = require("./routes/recipes");
+app.use("/", recipeRouter);
 
 // refreshing within a page will boot you back to mainpage
 app.get("/*", (req, res) => {

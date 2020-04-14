@@ -30,12 +30,12 @@ app.use(express.static("../client/build"));
 
 // add routers
 const recipeRouter = require("./routes/recipes");
-app.use("/", recipeRouter);
+app.use("/recipes", recipeRouter);
 
-// refreshing within a page will boot you back to mainpage
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/public/index.html"));
-});
+// // refreshing within a page will boot you back to mainpage
+// app.get("/*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../client/public/index.html"));
+// });
 
 // unknown endpoint handler
 app.use("*", (req, res) => res.sendStatus(404));

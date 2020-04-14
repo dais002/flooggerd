@@ -1,17 +1,14 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
 import Recipe from "./Recipe";
-import { RecipeContext } from "../RecipeContext";
 
-function Recipes() {
+function Recipes({ displayRecipes }) {
   console.log("in recipes component");
-  const recipes = useContext(RecipeContext);
 
-  const recipeList = recipes.map((recipe, idx) => {
+  const recipeList = displayRecipes.map((recipe, idx) => {
     return <Recipe key={idx} recipe={recipe} />;
   });
 
-  return <section>{recipeList}</section>;
+  return <div className="recipes-list">{recipeList}</div>;
 }
 
 export default Recipes;

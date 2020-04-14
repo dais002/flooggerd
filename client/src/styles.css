@@ -18,3 +18,13 @@ body {
   margin: 0 auto;
   max-width: 1200px;
 }
+
+/* --------------------------------- */
+
+h1 {
+  border: 1px dotted blue
+}
+
+.recipes-container {
+  border: 1px brown solid;
+}

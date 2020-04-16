@@ -5,6 +5,8 @@ import ReactDOM from "react-dom";
 // has 2 args - (props, ref)
 // use React's useImperativeHandle to connect your ref
 // returns an object with functions as methods
+// this reference will not re-render components on change
+// store any value in useRef - access value with .current
 
 const Modal = forwardRef((props, ref) => {
   const [displaymodal, setDisplayModal] = useState(false);

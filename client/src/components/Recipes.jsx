@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import Recipe from "./Recipe";
 
-function Recipes({ displayRecipes }) {
+const Recipes = React.memo(({ displayRecipes }) => {
   console.log("in recipes component");
 
   const recipeList = displayRecipes.map((recipe, idx) => {
@@ -9,6 +9,6 @@ function Recipes({ displayRecipes }) {
   });
 
   return <div className="recipes-list">{recipeList}</div>;
-}
+});
 
 export default Recipes;

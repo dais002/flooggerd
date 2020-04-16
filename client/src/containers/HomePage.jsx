@@ -1,26 +1,28 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import Recipes from "../components/Recipes.jsx";
 import { RecipeContext } from "../RecipeContext.jsx";
-import DummyData from "../playground/DummyData.jsx";
+// import DummyData from "../playground/DummyData.jsx";
 import AddRecipe from "../components/AddRecipe.jsx";
 
 function HomePage() {
-  const recipes = useContext(RecipeContext);
-  console.log("in recipes page");
+  console.log("in home page");
+  const { initialState } = useContext(RecipeContext);
   const [displayRecipes, setDisplayRecipes] = useState([]);
 
+  // load recipes on page load and updates
   useEffect(() => {
     console.log("in useeffect");
-    setDisplayRecipes([...recipes, ...DummyData]);
-  }, [recipes]);
+    setDisplayRecipes(initialState);
+  }, [initialState]);
 
+  // search bar filtering on each keystroke
   const searchFilter = (event) => {
     event.preventDefault();
     const searchText = event.target.value;
-    const dummyData = [...recipes, ...DummyData];
-    const filteredRecipes = dummyData.filter((recipe) => {
+    console.log("searchText", searchText);
+    const copy = [...initialState];
+    const searchResult = copy.filter((recipe) => {
       let output = [];
-      let result;
 
       // recursive function to parse through recipe object
       function getValues(input) {
@@ -36,15 +38,14 @@ function HomePage() {
       }
 
       const values = getValues(recipe).join(" ");
-      if (values.includes(searchText)) result = true;
       output = [];
-      if (result) return recipe;
+      if (values.includes(searchText)) return recipe;
     });
-    setDisplayRecipes(filteredRecipes);
+    setDisplayRecipes(searchResult);
   };
 
+  // use modal reference
   const modalRef = useRef();
-
   const openModal = () => {
     modalRef.current.openModal();
   };

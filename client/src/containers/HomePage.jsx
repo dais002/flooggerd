@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import Recipes from "../components/Recipes.jsx";
 import { RecipeContext } from "../RecipeContext.jsx";
-// import DummyData from "../playground/DummyData.jsx";
 import AddRecipe from "../components/AddRecipe.jsx";
 
 function HomePage() {
@@ -11,8 +10,8 @@ function HomePage() {
 
   // load recipes on page load and updates
   useEffect(() => {
-    console.log("in useeffect");
     setDisplayRecipes(initialState);
+    console.log("in useeffect", initialState);
   }, [initialState]);
 
   // search bar filtering on each keystroke

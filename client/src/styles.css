@@ -50,7 +50,7 @@ ul.navright {
   border: 1px brown solid;
 }
 
-h2 {
+.recipes-container h2 {
   /* border: 1px dotted blue; */
   margin: 15px 0px;
   padding: 0% 2.5%;
@@ -150,15 +150,67 @@ input.searchbar-input {
   text-align: left;
 }
 
-button.recipe-card p {
+.recipe-card p {
   padding-left: 15px;
   margin-top: 0px;
   margin-bottom: 15px;
   text-align: left;
 }
 
+.recipe-card button {
+  border-width: 0px;
+}
+
 button img {
   width: 238px;
   height: 160px;
   padding: 10px;
+}
+
+/* --------- recipe page --------- */
+
+.recipe-page {
+  padding: 0% 2.5%;
+}
+
+.recipe-page h2 {
+  padding: 15px 0px 7.5px 7.5px;
+  border-bottom: 1px solid black;
+  margin-bottom: 7.5px;
+}
+
+.recipe-overview {
+  display: flex;
+  justify-content: space-between;
+  padding: 1% 2.5%;
+  font-size: 1.2em;
+}
+
+.recipe-text {
+  width: 60%;
+}
+
+.recipe-buttons {
+  margin-top: 20px;
+}
+
+.recipe-buttons button {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+td {
+  padding-bottom: 0.5em;
+  padding-right: 0.8em;
+}
+
+td:first-child {
+  font-weight: bold;
+}
+
+.recipe-image {
+  border-radius: 10px;
+  border: 1px solid black;
+  max-width: 400px;
+  max-height: 300px;
 }

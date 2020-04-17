@@ -144,6 +144,7 @@ const AddRecipe = forwardRef((props, ref) => {
       return { ...acc, [idx + 1]: current };
     }, {});
 
+    // refactor to useReducer and move to context API to reuse if needed
     axios
       .post("/api/recipes", {
         ...newRecipe,
@@ -151,7 +152,7 @@ const AddRecipe = forwardRef((props, ref) => {
         instructions: instructionsObject,
       })
       .then((res) => {
-        console.log("response from post", res);
+        console.log("response from post", res.data);
         setGlobalState(res.data);
       })
       .catch((err) => console.log("didnt post", err));

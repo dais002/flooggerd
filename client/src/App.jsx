@@ -6,6 +6,7 @@ import HomePage from "./containers/HomePage.jsx";
 import AboutUs from "./containers/AboutUsPage.jsx";
 import ShoppingList from "./containers/ShoppingPage.jsx";
 import PantryPage from "./containers/PantryPage.jsx";
+import RecipePage from "./containers/RecipePage.jsx";
 
 const App = () => {
   return (
@@ -23,6 +24,9 @@ const App = () => {
         </Route>
         <Route path="/shoppinglist">
           <ShoppingList />
+        </Route>
+        <Route path="/recipe/:id">
+          <RecipePage />
         </Route>
       </Switch>
     </div>

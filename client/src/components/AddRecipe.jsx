@@ -5,11 +5,11 @@ import React, {
   useContext,
   useEffect,
 } from "react";
-import axios from "axios";
 import { RecipeContext } from "../RecipeContext";
+import axios from "axios";
 
 const AddRecipe = forwardRef((props, ref) => {
-  const { setGlobalState } = useContext(RecipeContext);
+  const { addRecipe } = useContext(RecipeContext);
 
   const [displayAddRecipe, setDisplayAddRecipe] = useState(false);
   const [ingredients, setIngredients] = useState([]);
@@ -145,17 +145,22 @@ const AddRecipe = forwardRef((props, ref) => {
     }, {});
 
     // refactor to useReducer and move to context API to reuse if needed
+    const newRecipeObject = {
+      ...newRecipe,
+      ingredients: ingredientsObject,
+      instructions: instructionsObject,
+    };
+
     axios
-      .post("/api/recipes", {
-        ...newRecipe,
-        ingredients: ingredientsObject,
-        instructions: instructionsObject,
-      })
+      .post("/api/recipes", newRecipeObject)
       .then((res) => {
-        console.log("response from post", res.data);
-        setGlobalState(res.data);
+        console.log("recipe posted");
+        addRecipe(res.data);
       })
-      .catch((err) => console.log("didnt post", err));
+      .catch((err) => {
+        console.log("recipe did not post");
+        alert("posting error - please try again");
+      });
 
     setDisplayAddRecipe(false);
   };

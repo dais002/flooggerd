@@ -5,21 +5,20 @@ import AddRecipe from "../components/AddRecipe.jsx";
 
 function HomePage() {
   console.log("in home page");
-  const { initialState } = useContext(RecipeContext);
+  const { state } = useContext(RecipeContext);
   const [displayRecipes, setDisplayRecipes] = useState([]);
 
   // load recipes on page load and updates
   useEffect(() => {
-    setDisplayRecipes(initialState);
-    console.log("in useeffect", initialState);
-  }, [initialState]);
+    console.log("useeffect setdisplay homepage", state);
+    setDisplayRecipes(state);
+  }, [state]);
 
   // search bar filtering on each keystroke
   const searchFilter = (event) => {
     event.preventDefault();
     const searchText = event.target.value;
-    console.log("searchText", searchText);
-    const copy = [...initialState];
+    const copy = [...state];
     const searchResult = copy.filter((recipe) => {
       let output = [];
 

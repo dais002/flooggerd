@@ -61,7 +61,6 @@ ul.navright {
 .search-container {
   display: flex;
   justify-content: space-between;
-  margin: 20px 0px 15px 0px;
   padding: 0% 4%;
 }
 
@@ -132,7 +131,7 @@ input.searchbar-input {
   .recipes-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 4% 2%;
+    gap: 2%;
     padding: 2.5%;
   }
 

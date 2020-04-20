@@ -8,8 +8,8 @@ function RecipePage() {
   const id = window.location.pathname.slice(8);
 
   const [openDelete, setOpenDelete] = useState(false);
-  const { initialState, setFetch, fetch } = useContext(RecipeContext);
-  const recipe = initialState.filter((recipe) => recipe._id == id)[0];
+  const { state } = useContext(RecipeContext);
+  const recipe = state.filter((recipe) => recipe._id == id)[0];
 
   // escape button to close modal
   useEffect(() => {
@@ -99,7 +99,7 @@ function RecipePage() {
   // filter on front end if delete is successful?
   const deleteRecipe = (event) => {
     axios.delete(`/api/recipes/${id}`).then((res) => {
-      setFetch(!fetch);
+      console.log("response from delete recipe", res);
     });
   };
 

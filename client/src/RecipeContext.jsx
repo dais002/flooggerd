@@ -1,32 +1,67 @@
-import React, { createContext, useEffect, useState, useCallback } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useState,
+  useCallback,
+  useReducer,
+} from "react";
 import axios from "axios";
 
 export const RecipeContext = createContext();
 
+// useReducer refactor
+export const DELETE_RECIPE = "DELETE_RECIPE";
+export const ADD_RECIPE = "ADD_RECIPE";
+export const INITIAL = "INITIAL";
+
+export const recipeReducer = (state, action) => {
+  if (action.type == DELETE_RECIPE) {
+    console.log("delete recipe reducer");
+  }
+
+  if (action.type == ADD_RECIPE) {
+    return [...state, action.payload];
+  }
+
+  if (action.type == INITIAL) {
+    return action.payload;
+  }
+
+  return state;
+};
+
 export const RecipeProvider = ({ children }) => {
-  const [initialState, setInitialState] = useState([]);
-  const [fetch, setFetch] = useState(false)
+  const [initial, setInitial] = useState([]);
+  const [state, dispatch] = useReducer(recipeReducer, initial);
 
   useEffect(() => {
-    console.log("fetching initialState");
-    axios.get("/api/recipes").then((res) => setInitialState(res.data));
-  }, [fetch]);
+    console.log("fetching");
+    axios.get("/api/recipes").then((res) => setInitial(res.data));
+  }, []);
 
-  const setGlobalState = useCallback(
-    (response) => {
-      setInitialState([...initialState, response]);
+  useEffect(() => {
+    console.log("dispatch initial");
+    dispatch({ type: INITIAL, payload: initial });
+  }, [initial]);
+
+  const addRecipe = useCallback(
+    (recipe) => {
+      dispatch({ type: ADD_RECIPE, payload: recipe });
     },
-    [initialState]
+    [dispatch]
   );
-  
-  // useReducer refactor
 
+  const deleteRecipe = useCallback(
+    (id) => {
+      dispatch({ type: DELETE_RECIPE, payload: id });
+    },
+    [dispatch]
+  );
 
   const value = {
-    initialState,
-    setGlobalState,
-    setFetch,
-    fetch
+    state,
+    addRecipe,
+    deleteRecipe,
   };
 
   return (

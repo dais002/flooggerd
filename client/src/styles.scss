@@ -1,0 +1,286 @@
+// // SASS demo
+// @mixin flexCenterSpaceBetween($direction) {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: $direction;
+// }
+
+// .sample-style {
+//   @include flexCenterSpaceBetween();
+//   @extend nav.navbar; //import css from another tag
+// }
+
+/* --------- page setup --------- */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  font-family: "Cabin", Arial, Geneva, sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+h2 {
+  /* border: 1px dotted blue; */
+  margin: 15px 0px;
+  padding: 0% 2.5%;
+}
+
+/* --------- navbar --------- */
+
+nav.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid green;
+  padding: 0px 20px;
+}
+
+div.meeshandstan {
+  margin: 15px;
+  a {
+    text-decoration: none;
+  }
+}
+
+ul.navright {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  margin: 15px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+li {
+  padding: 0px 10px;
+}
+
+/* --------- recipes container --------- */
+
+.recipes-container {
+  border: 1px brown solid;
+}
+
+/* --------- recipes search bar --------- */
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0% 4%;
+}
+
+form.searchbar {
+  width: 40%;
+}
+
+input.searchbar-input {
+  width: 100%;
+  border: 1px solid grey;
+  padding: 8px 10px;
+  border-radius: 0.2em;
+}
+
+.add-recipe {
+  padding: 2px 4px;
+  border-radius: 0.2em;
+  font-weight: bold;
+  &:hover {
+    background-color: rgb(150, 150, 150);
+    border: 3px solid rgb(110, 110, 110);
+    color: rgb(255, 255, 255);
+  }
+}
+
+/* --------- add recipe modal --------- */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-box {
+  position: relative;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  min-width: 400px;
+  width: 50%;
+  max-width: 800px;
+  max-height: 550px;
+  overflow-y: auto;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  z-index: 101;
+  padding: 20px;
+}
+
+.addrecipe-form {
+  h2 {
+    margin-top: 0px;
+    margin-bottom: 8px;
+  }
+  &-lines {
+    padding-top: 10px;
+  }
+}
+
+/* --------- recipe cards --------- */
+
+@media only screen and (min-width: 480px) {
+  .recipes-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2%;
+    padding: 2.5%;
+  }
+
+  .recipe-card {
+    background-color: rgb(238, 241, 241);
+    text-align: center;
+    padding: 10px;
+    h3 {
+      margin-top: 10px;
+    }
+    h4 {
+      margin: 15px 0px;
+      padding-left: 15px;
+      text-align: left;
+    }
+    p {
+      padding-left: 15px;
+      margin-top: 0px;
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    button {
+      border-width: 0px;
+    }
+  }
+}
+
+button img {
+  width: 238px;
+  height: 160px;
+  padding: 10px;
+}
+
+@media only screen and (min-width: 650px) {
+  .recipes-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .recipes-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* --------- recipe page --------- */
+
+.recipe-page {
+  padding: 0% 2.5%;
+  h2 {
+    padding: 15px 0px 7.5px 7.5px;
+    border-bottom: 1px solid black;
+    margin-bottom: 7.5px;
+  }
+}
+
+.recipe-overview {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.recipe-text {
+  width: 60%;
+}
+
+.recipe-buttons {
+  margin-top: 20px;
+  button {
+    padding: 5px;
+    margin-right: 10px;
+  }
+}
+
+td {
+  padding-bottom: 0.5em;
+  padding-right: 0.8em;
+  :first-child {
+    font-weight: bold;
+  }
+}
+
+.recipe-image {
+  border-radius: 10px;
+  border: 1px solid black;
+  max-width: 400px;
+  max-height: 300px;
+  &-container {
+    padding: 10px 0px;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .recipe-overview {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1% 2.5%;
+    font-size: 1.2em;
+  }
+}
+
+/* --------- pantry and shopping page --------- */
+
+.lists-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0.5% 1% 0% 1%;
+  h3 {
+    margin-top: 0.5%;
+    font-size: 1.3em;
+  }
+}
+
+.pantry-form {
+  margin: 2.5% 0%;
+  display: flex;
+  justify-content: space-around;
+  input:first-child {
+    width: 50%;
+  }
+}
+
+.more-info-button {
+  margin-bottom: 10px;
+}
+
+.pantry-table {
+  width: 100%;
+  h4 {
+    margin: 5px 0px;
+    text-align: left;
+    align-items: center;
+  }
+  td {
+    padding: 0px;
+  }
+}

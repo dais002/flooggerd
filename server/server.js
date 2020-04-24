@@ -12,7 +12,7 @@ const app = express();
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  dbName: 'meeshandstan-eats'
+  dbName: "meeshandstan-eats",
 });
 const db = mongoose.connection;
 db.on("error", (err) => console.error(err));
@@ -31,6 +31,9 @@ app.use(express.static("../client/build"));
 // add routers
 const recipeRouter = require("./routes/recipes");
 app.use("/api/recipes", recipeRouter);
+
+const listsRouter = require("./routes/lists");
+app.use("/api/lists", listsRouter);
 
 // unknown endpoint handler
 app.use("*", (req, res) => res.sendStatus(404));

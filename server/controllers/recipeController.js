@@ -1,10 +1,10 @@
-const db = require("../database/dbmodel");
+const { Recipe } = require("../database/dbModel");
 
 const recipeController = {};
 
 recipeController.getAllRecipes = async (req, res, next) => {
-  const recipes = await db.find();
-  res.locals.recipes = recipes;
+  const recipeList = await Recipe.find();
+  res.locals.recipes = recipeList;
   return next();
 };
 
@@ -18,16 +18,15 @@ recipeController.addRecipe = async (req, res, next) => {
     time,
     notes,
   } = req.body;
-  const newRecipe = await db
-    .create({
-      name,
-      type,
-      cuisine,
-      instructions,
-      ingredients,
-      time,
-      notes,
-    })
+  const newRecipe = await Recipe.create({
+    name,
+    type,
+    cuisine,
+    instructions,
+    ingredients,
+    time,
+    notes,
+  })
     .then((recipe) => {
       console.log("recipe created");
       res.locals.recipe = recipe;
@@ -41,10 +40,9 @@ recipeController.addRecipe = async (req, res, next) => {
 
 recipeController.deleteRecipe = async (req, res, next) => {
   const { id } = req.params;
-  await db
-    .deleteOne({
-      _id: id,
-    })
+  await Recipe.deleteOne({
+    _id: id,
+  })
     .then((res) => {
       console.log("deleted from server");
       return next();

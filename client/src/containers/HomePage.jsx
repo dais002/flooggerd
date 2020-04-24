@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
-import Recipes from "../components/Recipes.jsx";
-import { RecipeContext } from "../RecipeContext.jsx";
+import RecipeCard from "../components/RecipeCard.jsx";
+import { RecipeContext } from "../context/RecipeContext.jsx";
 import AddRecipe from "../components/AddRecipe.jsx";
 
 function HomePage() {
@@ -48,6 +48,10 @@ function HomePage() {
     modalRef.current.openModal();
   };
 
+  const recipeList = displayRecipes.map((recipe, idx) => {
+    return <RecipeCard key={idx} recipe={recipe} />;
+  });
+
   return (
     <div className="recipes-container">
       <h2>What do you feel like making today?</h2>
@@ -65,7 +69,7 @@ function HomePage() {
         </button>
         <AddRecipe ref={modalRef} />
       </div>
-      <Recipes displayRecipes={displayRecipes} />
+      <div className="recipes-list">{recipeList}</div>
     </div>
   );
 }

@@ -14,11 +14,11 @@ function NavBar() {
         <Link to="/aboutus">
           <li>About Us</li>
         </Link>
-        <Link to="/pantry">
-          <li>Pantry</li>
+        <Link to="/placeholder">
+          <li>Placeholder</li>
         </Link>
         <Link to="/shoppinglist">
-          <li>Shopping List</li>
+          <li>Pantry/Shopping</li>
         </Link>
       </ul>
     </nav>

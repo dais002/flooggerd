@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// add recipe schema
 const recipeSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -28,4 +29,26 @@ const recipeSchema = new mongoose.Schema({
   notes: String,
 });
 
-module.exports = mongoose.model("Recipe", recipeSchema);
+const Recipe = mongoose.model("recipe", recipeSchema);
+
+// shopping list and pantry schema
+const listSchema = new mongoose.Schema({
+  item: {
+    type: String,
+    required: true,
+  },
+  list: {
+    type: Number,
+    required: true,
+  },
+  category: String,
+  amount: String,
+  notes: String,
+});
+
+const List = mongoose.model("list", listSchema);
+
+module.exports = {
+  Recipe,
+  List,
+};

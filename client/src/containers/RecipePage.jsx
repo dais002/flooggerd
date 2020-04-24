@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { RecipeContext } from "../RecipeContext";
+import { RecipeContext } from "../context/RecipeContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -8,7 +8,7 @@ function RecipePage() {
   const id = window.location.pathname.slice(8);
 
   const [openDelete, setOpenDelete] = useState(false);
-  const { state } = useContext(RecipeContext);
+  const { state, deleteRecipe } = useContext(RecipeContext);
   const recipe = state.filter((recipe) => recipe._id == id)[0];
 
   // escape button to close modal
@@ -97,9 +97,10 @@ function RecipePage() {
 
   // refactor to not refetch after deleting recipe
   // filter on front end if delete is successful?
-  const deleteRecipe = (event) => {
+  const removeRecipe = (event) => {
     axios.delete(`/api/recipes/${id}`).then((res) => {
-      console.log("response from delete recipe", res);
+      console.log("response from delete recipe", res.data);
+      deleteRecipe(id);
     });
   };
 
@@ -142,7 +143,7 @@ function RecipePage() {
                 <div className="modal-box">
                   Delete Recipe?
                   <Link to="/">
-                    <button onClick={deleteRecipe}>Ok</button>
+                    <button onClick={removeRecipe}>Ok</button>
                   </Link>
                   <button onClick={() => setOpenDelete(false)}>Cancel</button>
                 </div>
@@ -150,7 +151,7 @@ function RecipePage() {
             ) : null}
           </div>
         </div>
-        <div>
+        <div className="recipe-image-container">
           <img
             className="recipe-image"
             src="https://via.placeholder.com/400x300"

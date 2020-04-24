@@ -5,7 +5,7 @@ import React, {
   useContext,
   useEffect,
 } from "react";
-import { RecipeContext } from "../RecipeContext";
+import { RecipeContext } from "../context/RecipeContext.jsx";
 import axios from "axios";
 
 const AddRecipe = forwardRef((props, ref) => {
@@ -71,18 +71,59 @@ const AddRecipe = forwardRef((props, ref) => {
 
   // ingredients handler to track inputs on each field
   const ingredientsHandler = (event) => {
-    const input = event.target.value;
-    const idx = event.target.id;
-    const field = event.target.name;
+    const { id, name, value } = event.target;
     const copy = [...ingredients];
 
-    if (field == "ingredient") {
-      copy[idx][0] = input;
+    if (name == "ingredient") {
+      copy[id][0] = value;
     }
-    if (field == "amount") {
-      copy[idx][1] = input;
+    if (name == "amount") {
+      copy[id][1] = value;
     }
     setIngredients(copy);
+  };
+
+  // instructions handler to track inputs
+  const instructionsHandler = (event) => {
+    const { id, value } = event.target;
+    const copy = [...instructions];
+    copy[id] = value;
+    setInstructions(copy);
+  };
+
+  // form submit handler
+  const postNewRecipe = (event) => {
+    event.preventDefault();
+
+    // reconstruct ingredients object from array
+    const ingredientsObject = ingredients.reduce((acc, current) => {
+      return { ...acc, [current[0]]: current[1] };
+    }, {});
+
+    // reconstruct instructions object from array
+    const instructionsObject = instructions.reduce((acc, current, idx) => {
+      return { ...acc, [idx + 1]: current };
+    }, {});
+
+    // refactor to useReducer and move to contextAPI to reuse if needed
+    const newRecipeObject = {
+      ...newRecipe,
+      ingredients: ingredientsObject,
+      instructions: instructionsObject,
+    };
+
+    axios
+      .post("/api/recipes", newRecipeObject)
+      .then((res) => {
+        console.log("recipe posted");
+        addRecipe(res.data);
+      })
+      .catch((err) => {
+        console.log("recipe did not post");
+        alert("posting error - please try again");
+      });
+
+    setDisplayAddRecipe(false);
   };
 
   // display ingredients field
@@ -107,14 +148,6 @@ const AddRecipe = forwardRef((props, ref) => {
     );
   });
 
-  // instructions handler to track inputs
-  const instructionsHandler = (event) => {
-    const idx = event.target.id;
-    const copy = [...instructions];
-    copy[idx] = event.target.value;
-    setInstructions(copy);
-  };
-
   // display instruction fields
   const instructionFields = instructions.map((instruction, idx) => {
     return (
@@ -129,41 +162,6 @@ const AddRecipe = forwardRef((props, ref) => {
       </div>
     );
   });
-
-  // form submit handler
-  const postNewRecipe = (event) => {
-    event.preventDefault();
-
-    // reconstruct ingredients object from array
-    const ingredientsObject = ingredients.reduce((acc, current) => {
-      return { ...acc, [current[0]]: current[1] };
-    }, {});
-
-    // reconstruct instructions object from array
-    const instructionsObject = instructions.reduce((acc, current, idx) => {
-      return { ...acc, [idx + 1]: current };
-    }, {});
-
-    // refactor to useReducer and move to context API to reuse if needed
-    const newRecipeObject = {
-      ...newRecipe,
-      ingredients: ingredientsObject,
-      instructions: instructionsObject,
-    };
-
-    axios
-      .post("/api/recipes", newRecipeObject)
-      .then((res) => {
-        console.log("recipe posted");
-        addRecipe(res.data);
-      })
-      .catch((err) => {
-        console.log("recipe did not post");
-        alert("posting error - please try again");
-      });
-
-    setDisplayAddRecipe(false);
-  };
 
   if (displayAddRecipe) {
     return (

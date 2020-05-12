@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function RecipePage() {
-  // should pass props down to this component based on id params
+  // refactor - should pass props down to this component based on id params
   const id = window.location.pathname.slice(8);
 
   const [openDelete, setOpenDelete] = useState(false);

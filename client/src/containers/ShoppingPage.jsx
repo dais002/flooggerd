@@ -6,6 +6,7 @@ function ShoppingPage() {
   const { state } = useContext(ShoppingContext);
   const [pantryList, setPantryList] = useState([]);
   const [shoppingList, setShoppingList] = useState([]);
+  const [pantryInput, setPantryInput] = useState("");
   const [moreInfo, setMoreInfo] = useState(false);
 
   useEffect(() => {
@@ -17,6 +18,11 @@ function ShoppingPage() {
     return <PantryItem pantry={pantry} key={idx} moreInfo={moreInfo} />;
   });
 
+  const addPantryItem = (e) => {
+    e.preventDefault();
+    setPantryList([pantryInput, ...pantryList]);
+  };
+
   return (
     <div>
       <h2>Pantry and Shopping List</h2>
@@ -24,7 +30,7 @@ function ShoppingPage() {
       <div className="lists-container">
         <div className="pantry-container">
           <h3>Inventory</h3>
-          <form className="pantry-form">
+          <form className="pantry-form" onSubmit={addPantryItem}>
             <input type="text" placeholder="item description" />
             <select>
               <option value="" disabled hidden>

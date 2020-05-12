@@ -1,6 +1,6 @@
 import React from "react";
 
-function PantryItem({ pantry, moreInfo }) {
+function ShoppingItem({ pantry, moreInfo }) {
   console.log("in pantry item");
   return (
     <tr>
@@ -20,4 +20,4 @@ function PantryItem({ pantry, moreInfo }) {
   );
 }
 
-export default React.memo(PantryItem);
+export default React.memo(ShoppingItem);

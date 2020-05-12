@@ -20,8 +20,17 @@ export const ShoppingProvider = ({ children }) => {
       .then((res) => dispatch({ type: INITIAL, payload: res.data }));
   }, []);
 
+  const updateLists = useCallback(
+    (item) => {
+      dispatch({ type: UPDATE_LISTS, payload: item });
+    },
+    [dispatch]
+  );
+
   const value = {
     state,
+    updateLists,
+
   };
 
   return (

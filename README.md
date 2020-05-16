@@ -1,3 +1,3 @@
-# meeshandstan-eats
+# food-logging-app
 
-Quarantine recipe, pantry, and shopping list tracker built using MERN stack.
+Recipe, pantry, and shopping list app built using MERN stack.
